@@ -1,7 +1,8 @@
 -----------------------------------------------------------------------------
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 -----------------------------------------------------------------------------
 module THREE.Mesh
   ( -- * Types
@@ -21,15 +22,14 @@ import           THREE.BufferGeometry (BufferGeometryClass)
 import qualified THREE.Internal as THREE
 import           THREE.Material as THREE
 import           THREE.Object3D as THREE
+import           THREE.EventDispatcher as THREE
 -----------------------------------------------------------------------------
 -- | https://threejs.org/docs/#api/en/objects/Mesh
 newtype Mesh
   = Mesh
   { unMesh :: JSVal
-  } deriving (MakeArgs, MakeObject, ToJSVal) 
-    deriving Object3D via JSVal
------------------------------------------------------------------------------
--- Constructors
+  } deriving newtype (MakeArgs, MakeObject, ToJSVal)
+    deriving anyclass (Object3D, EventDispatcher)
 -----------------------------------------------------------------------------
 new
   :: (BufferGeometryClass geometry, Material material)
@@ -37,14 +37,4 @@ new
   -> material
   -> THREE.Three Mesh
 new geometry material = THREE.new Mesh "Mesh" (geometry, material)
------------------------------------------------------------------------------
--- Read-only properties
------------------------------------------------------------------------------
--- Properties
------------------------------------------------------------------------------
--- Optional properties
------------------------------------------------------------------------------
--- Methods
------------------------------------------------------------------------------
--- Helper functions
 -----------------------------------------------------------------------------

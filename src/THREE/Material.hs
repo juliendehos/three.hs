@@ -1,8 +1,9 @@
 -----------------------------------------------------------------------------
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DerivingVia                #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE TypeApplications           #-}
 {-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 -----------------------------------------------------------------------------
 module THREE.Material
   ( -- * Types
@@ -17,16 +18,13 @@ module THREE.Material
 import           Language.Javascript.JSaddle
 -----------------------------------------------------------------------------
 import           THREE.Internal as THREE
+import           THREE.EventDispatcher as THREE
 -----------------------------------------------------------------------------
 -- | https://threejs.org/docs/#api/en/materials/Material
-class ToJSVal material => Material material where
-  -- read-only properties
-  isMaterial :: Property material "isMaterial" Bool
-  -- properties
-  -- optional properties
-  -- methods
+class (EventDispatcher material, ToJSVal material, MakeObject material) => Material material where
+  isMaterial :: ReadOnly material Bool
+  isMaterial = THREE.readonly "isMaterial"
 -----------------------------------------------------------------------------
-instance Material JSVal where
-  isMaterial = property
+instance Material JSVal
 -----------------------------------------------------------------------------
 

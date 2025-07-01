@@ -21,18 +21,10 @@ import           THREE.Object3D as THREE
 -----------------------------------------------------------------------------
 -- | https://threejs.org/docs/#api/en/lights/Light
 class Object3D light => Light light where
-  -- read-only properties
-  isLight :: Property light "isLight" Bool
-  -- properties
-  intensity :: Property light "intensity" Double
-  -- optional properties
-  -- methods
+  isLight :: ReadOnly light Bool
+  isLight = readonly "isLight" 
+  intensity :: Property light Double
+  intensity = property "intensity" 
 -----------------------------------------------------------------------------
-instance Light JSVal where
-  -- read-only properties
-  isLight = property
-  -- properties
-  intensity = property
-  -- optional properties
-  -- methods
+instance Light JSVal
 -----------------------------------------------------------------------------
