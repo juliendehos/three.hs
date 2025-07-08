@@ -1,26 +1,56 @@
 -----------------------------------------------------------------------------
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 -----------------------------------------------------------------------------
 module THREE.RectAreaLight
   ( -- * Types
     RectAreaLight (..)
-    -- * Methods
+    -- * Constructors
   , THREE.RectAreaLight.new
+    -- * Read-only Properties
+  , isRectAreaLight
     -- * Properties
+  , height
+  , power
+  , width
+    -- * Optional properties
+    -- * Methods
+    -- * Helper functions
   ) where
 -----------------------------------------------------------------------------
 import           Language.Javascript.JSaddle
 -----------------------------------------------------------------------------
-import qualified THREE.Internal as THREE
+import           THREE.EventDispatcher
+import           THREE.Internal as THREE
+import           THREE.Light
+import           THREE.Object3D
 -----------------------------------------------------------------------------
--- | https://threejs.org/docs/#api/en/scenes/RectAreaLight
+-- | https://threejs.org/docs/#api/en/lights/RectAreaLight
 newtype RectAreaLight
   = RectAreaLight
-  { unRectAreaLightCamera :: JSVal
-  } deriving (MakeObject)
+  { unRectAreaLight :: JSVal
+  } deriving newtype (MakeArgs, MakeObject, ToJSVal)
+    deriving anyclass (Light, Object3D, EventDispatcher)
 -----------------------------------------------------------------------------
--- | https://threejs.org/docs/#api/en/cameras/RectAreaLight
 new :: THREE.Three RectAreaLight
-new = THREE.new RectAreaLight "RectAreaLight" ([] :: [JSString])
+new = THREE.new RectAreaLight "RectAreaLight" ()
+-----------------------------------------------------------------------------
+-- Read-only properties
+-----------------------------------------------------------------------------
+isRectAreaLight :: ReadOnly RectAreaLight Bool
+isRectAreaLight = readonly "isRectAreaLight" 
+-----------------------------------------------------------------------------
+-- Properties
+-----------------------------------------------------------------------------
+height :: Property RectAreaLight Double
+height = property "height" 
+-----------------------------------------------------------------------------
+power :: Property RectAreaLight Double
+power = property "power" 
+-----------------------------------------------------------------------------
+width :: Property RectAreaLight Double
+width = property "width" 
 -----------------------------------------------------------------------------

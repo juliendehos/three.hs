@@ -1,26 +1,49 @@
 -----------------------------------------------------------------------------
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 -----------------------------------------------------------------------------
 module THREE.HemisphereLight
   ( -- * Types
     HemisphereLight (..)
-    -- * Methods
+    -- * Constructors
   , THREE.HemisphereLight.new
+    -- * Read-only Properties
+  , isHemisphereLight
     -- * Properties
+  , groundColor
+    -- * Optional properties
+    -- * Methods
+    -- * Helper functions
   ) where
 -----------------------------------------------------------------------------
 import           Language.Javascript.JSaddle
 -----------------------------------------------------------------------------
-import qualified THREE.Internal as THREE
+import           THREE.Color
+import           THREE.EventDispatcher
+import           THREE.Internal as THREE
+import           THREE.Light
+import           THREE.Object3D
 -----------------------------------------------------------------------------
--- | https://threejs.org/docs/#api/en/scenes/HemisphereLight
+-- | https://threejs.org/docs/#api/en/lights/HemisphereLight
 newtype HemisphereLight
   = HemisphereLight
-  { unHemisphereLightCamera :: JSVal
-  } deriving (MakeObject)
+  { unHemisphereLight :: JSVal
+  } deriving newtype (MakeArgs, MakeObject, ToJSVal)
+    deriving anyclass (Light, Object3D, EventDispatcher)
 -----------------------------------------------------------------------------
--- | https://threejs.org/docs/#api/en/cameras/HemisphereLight
 new :: THREE.Three HemisphereLight
-new = THREE.new HemisphereLight "HemisphereLight" ([] :: [JSString])
+new = THREE.new HemisphereLight "HemisphereLight" ()
+-----------------------------------------------------------------------------
+-- Read-only properties
+-----------------------------------------------------------------------------
+isHemisphereLight :: ReadOnly HemisphereLight Bool
+isHemisphereLight = readonly "isHemisphereLight" 
+-----------------------------------------------------------------------------
+-- Properties
+-----------------------------------------------------------------------------
+groundColor :: Property HemisphereLight Color
+groundColor = property "groundColor" 
 -----------------------------------------------------------------------------

@@ -138,7 +138,7 @@ $ nix-shell --run 'cabal build'
   - [ ] [SpotLightHelper](https://threejs.org/docs/#api/en/helpers/SpotLightHelper)
 
 #### Lights
-  - [ ] [AmbientLight](https://threejs.org/docs/#api/en/lights/AmbientLight)
+  - [x] [AmbientLight](https://threejs.org/docs/#api/en/lights/AmbientLight)
   - [ ] [DirectionalLight](https://threejs.org/docs/#api/en/lights/DirectionalLight)
   - [ ] [HemisphereLight](https://threejs.org/docs/#api/en/lights/HemisphereLight)
   - [x] [Light](https://threejs.org/docs/#api/en/lights/Light)
