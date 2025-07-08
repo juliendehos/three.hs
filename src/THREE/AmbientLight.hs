@@ -9,6 +9,7 @@ module THREE.AmbientLight
     AmbientLight (..)
     -- * Methods
   , THREE.AmbientLight.new
+  , new'
     -- * Properties
   , isAmbientLight
   ) where
@@ -19,6 +20,8 @@ import           THREE.EventDispatcher as THREE
 import           THREE.Internal as THREE
 import           THREE.Light as THREE
 import           THREE.Object3D as THREE
+
+import           THREE.Color
 -----------------------------------------------------------------------------
 -- | https://threejs.org/docs/#api/en/lights/AmbientLight
 newtype AmbientLight
@@ -36,3 +39,19 @@ new color' intensity' = THREE.new AmbientLight "AmbientLight" (color', intensity
 isAmbientLight :: ReadOnly AmbientLight Bool
 isAmbientLight = readonly "isAmbientLight" 
 -----------------------------------------------------------------------------
+
+new' :: ColorClass color => color -> THREE.Three AmbientLight
+new' color' = THREE.new AmbientLight "AmbientLight" (toColorVal color')
+
+mkLight1 :: THREE.Three AmbientLight
+mkLight1 = new' (0x110000 :: Int)
+
+mkLight2 :: THREE.Three AmbientLight
+mkLight2 = new' Green
+
+mkLight3 :: THREE.Three AmbientLight
+mkLight3 = new' =<< THREE.Color.newColor (RGB 0 0 1)
+
+mkLight4 :: THREE.Three AmbientLight
+mkLight4 = new' (RGB 0 0 1)
+
