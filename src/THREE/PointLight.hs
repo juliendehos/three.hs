@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 -----------------------------------------------------------------------------
@@ -23,10 +23,10 @@ module THREE.PointLight
 -----------------------------------------------------------------------------
 import           Language.Javascript.JSaddle
 -----------------------------------------------------------------------------
+import           THREE.EventDispatcher as THREE
 import           THREE.Internal as THREE
 import           THREE.Light as THREE
 import           THREE.Object3D as THREE
-import           THREE.EventDispatcher as THREE
 -----------------------------------------------------------------------------
 -- | https://threejs.org/docs/#api/en/lights/PointLight
 newtype PointLight
