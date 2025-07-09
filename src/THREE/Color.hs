@@ -7,7 +7,7 @@ module THREE.Color
     Color (..)
   , ColorClass (..)
   , ColorKeyword (..)
-  , RGB (..)
+  , Rgb (..)
     -- * Methods
   , THREE.Color.new
   , newColor
@@ -31,31 +31,41 @@ new :: (Double, Double, Double) -> THREE.Three Color
 new (r, g, b) = THREE.new Color "Color" (r, g, b)
 -----------------------------------------------------------------------------
 
-newColor :: ColorClass color => color -> THREE.Three Color
-newColor color' = THREE.new Color "Color" (toColorVal color')
+newColor :: RgbClass rgb => rgb -> THREE.Three Color
+newColor rgb' = THREE.new Color "Color" (toRgbVal rgb')
 
 data ColorKeyword
-  = Red
+  = Cyan
   | Green
-  | Blue
+
+data Rgb = Rgb Double Double Double
+
+class RgbClass rgb where
+  toRgbVal :: rgb -> JSM JSVal
+
+instance RgbClass Rgb where
+  toRgbVal (Rgb r g b) = toJSVal (r, g, b)
+
+instance RgbClass Int where
+  toRgbVal = toJSVal
+
+instance RgbClass ColorKeyword where
+  toRgbVal k = toJSVal $ case k of
+    Cyan -> "cyan" :: JSString
+    Green -> "green"
+
+instance RgbClass Color where
+  toRgbVal = pure . unColor
 
 class ColorClass color where
   toColorVal :: color -> JSM JSVal
 
-instance ColorClass Color where
-  toColorVal = pure . unColor
-
 instance ColorClass Int where
-  toColorVal = toJSVal
-
-data RGB = RGB Double Double Double
-
-instance ColorClass RGB where
-  toColorVal (RGB r g b) = toJSVal (r, g, b)
+  toColorVal = toRgbVal
 
 instance ColorClass ColorKeyword where
-  toColorVal k = toJSVal $ case k of
-    Red -> "red" :: JSString
-    Green -> "green"
-    Blue -> "blue"
+  toColorVal = toRgbVal
+
+instance ColorClass Color where
+  toColorVal = toRgbVal
 
