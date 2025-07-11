@@ -104,3 +104,32 @@ test3 = do
   c5 <- newColor3 (Just c4, Nothing, Nothing)
   pure ()
 
+
+
+
+
+newColor4a :: Int -> THREE.Three Color
+newColor4a = THREE.new Color "Color"
+
+newColor4b :: () -> THREE.Three Color
+newColor4b = THREE.new Color "Color"
+
+newColor4c :: (Double, Double, Double) -> THREE.Three Color
+newColor4c = THREE.new Color "Color"
+
+newColor4d :: JSString -> THREE.Three Color
+newColor4d = THREE.new Color "Color"
+
+newColor4e :: Color -> THREE.Three Color
+newColor4e = THREE.new Color "Color"
+
+test4 :: THREE.Three ()
+test4 = do
+  c1 <- newColor4a 0xff00ff
+  c2 <- newColor4b ()
+  c3 <- newColor4c (1, 0, 0)
+  c4 <- newColor4d ("blue"::JSString)
+  c5 <- newColor4e =<< newColor4d "green"
+  pure ()
+
+
