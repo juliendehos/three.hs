@@ -29,3 +29,9 @@ new = THREE.new MeshBasicMaterial "MeshBasicMaterial"
 color :: THREE.Property MeshBasicMaterial JSString
 color = THREE.property "color" 
 -----------------------------------------------------------------------------
+
+-- in three.js, MeshBasicMaterial has a contructor with a `parameters` argument
+--
+-- in three.hs: just construct a default MeshBasicMaterial then use properties
+--
+
