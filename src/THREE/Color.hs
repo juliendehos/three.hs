@@ -31,9 +31,6 @@ new :: (Double, Double, Double) -> THREE.Three Color
 new (r, g, b) = THREE.new Color "Color" (r, g, b)
 -----------------------------------------------------------------------------
 
-newColor :: RgbClass rgb => rgb -> THREE.Three Color
-newColor rgb' = THREE.new Color "Color" (toRgbVal rgb')
-
 data ColorKeyword
   = Cyan
   | Green
@@ -56,6 +53,9 @@ instance RgbClass ColorKeyword where
 
 instance RgbClass Color where
   toRgbVal = pure . unColor
+
+newColor :: RgbClass rgb => rgb -> THREE.Three Color
+newColor rgb' = THREE.new Color "Color" (toRgbVal rgb')
 
 class ColorClass color where
   toColorVal :: color -> JSM JSVal

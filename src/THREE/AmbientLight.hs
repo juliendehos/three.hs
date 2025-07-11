@@ -40,28 +40,28 @@ isAmbientLight :: ReadOnly AmbientLight Bool
 isAmbientLight = readonly "isAmbientLight" 
 -----------------------------------------------------------------------------
 
-new' :: ColorClass color => color -> THREE.Three AmbientLight
-new' color' = THREE.new AmbientLight "AmbientLight" (toColorVal color')
+newAmbientLight :: ColorClass color => color -> THREE.Three AmbientLight
+newAmbientLight color' = THREE.new AmbientLight "AmbientLight" (toColorVal color')
 
 mkLight1 :: THREE.Three AmbientLight
-mkLight1 = new' (0x110000 :: Int)
+mkLight1 = newAmbientLight (0x110000 :: Int)
 
 mkLight2 :: THREE.Three AmbientLight
-mkLight2 = new' Green
+mkLight2 = newAmbientLight Green
 
 mkLight3 :: THREE.Three AmbientLight
-mkLight3 = new' =<< THREE.Color.newColor (Rgb 0 0 1)
+mkLight3 = newAmbientLight =<< THREE.Color.newColor (Rgb 0 0 1)
 
 mkLight4 :: THREE.Three AmbientLight
-mkLight4 = new' =<< THREE.Color.newColor (0x111100 :: Int)
+mkLight4 = newAmbientLight =<< THREE.Color.newColor (0x111100 :: Int)
 
 mkLight5 :: THREE.Three AmbientLight
-mkLight5 = new' =<< THREE.Color.newColor Cyan
+mkLight5 = newAmbientLight =<< THREE.Color.newColor Cyan
 
 mkLight6 :: THREE.Three AmbientLight
-mkLight6 = new' =<< THREE.Color.newColor =<< THREE.Color.newColor (Rgb 0 0 1)
+mkLight6 = newAmbientLight =<< THREE.Color.newColor =<< THREE.Color.newColor (Rgb 0 0 1)
 
 -- not allowed
 -- mkLight7 :: THREE.Three AmbientLight
--- mkLight7 = new' (Rgb 0 0 1)
+-- mkLight7 = newAmbientLight (Rgb 0 0 1)
 
