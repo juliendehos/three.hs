@@ -29,29 +29,46 @@ class (EventDispatcher material, ToJSVal material, MakeObject material) => Mater
 
   alphaHash :: Property material Bool
   alphaHash = property "alphaHash" 
+
   alphaTest :: Property material Double
   alphaTest = property "alphaTest" 
+
   alphaToCoverage :: Property material Bool
   alphaToCoverage = property "alphaToCoverage" 
+
   blendAlpha :: Property material Double
   blendAlpha = property "blendAlpha" 
+
   blendColor :: Property material Color
   blendColor = property "blendColor" 
+
   blendDst :: Property material (Maybe DestinationFactors)
-  blendDst = optional "blendDst" 
+  blendDst = property "blendDst" 
+
   blendDstAlpha :: Property material (Maybe DestinationFactors)
   blendDstAlpha = optional "blendDstAlpha" 
+
   blendEquation :: Property material BlendingEquations
   blendEquation = property "blendEquation" 
+
   blendEquationAlpha :: Property material (Maybe BlendingEquations)
   blendEquationAlpha = optional "blendEquationAlpha" 
-  -- TODO blending
+
+  blending :: Property material (Maybe BlendingMode)
+  blending = property "blending" 
 
   blendSrc :: Property material SourceFactors
   blendSrc = property "blendSrc" 
+
   blendSrcAlpha :: Property material SourceFactors
-  blendSrcAlpha = property "blendSrcAlpha" 
-  -- TODO clipIntersection...
+  blendSrcAlpha = optional "blendSrcAlpha" 
+
+  clipIntersection :: Property material Bool
+  clipIntersection = property "clipIntersection" 
+
+  clipIntersection :: Property material Bool
+  clipIntersection = property "clipIntersection" 
+
 
 -----------------------------------------------------------------------------
 instance Material JSVal
