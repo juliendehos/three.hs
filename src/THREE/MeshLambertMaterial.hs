@@ -1,6 +1,8 @@
 -----------------------------------------------------------------------------
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings #-}
 -----------------------------------------------------------------------------
@@ -28,8 +30,8 @@ import           THREE.Texture
 newtype MeshLambertMaterial
   = MeshLambertMaterial
   { unMeshLambertMaterial :: JSVal
-  } deriving (EventDispatcher, MakeArgs, MakeObject, ToJSVal)
-    deriving newtype Material
+  } deriving newtype (MakeArgs, MakeObject, ToJSVal)
+    deriving anyclass (Material, EventDispatcher)
 -----------------------------------------------------------------------------
 -- Constructors
 -----------------------------------------------------------------------------

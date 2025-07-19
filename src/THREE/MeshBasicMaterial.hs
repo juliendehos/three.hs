@@ -1,6 +1,10 @@
 -----------------------------------------------------------------------------
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE OverloadedStrings #-}
 -----------------------------------------------------------------------------
 module THREE.MeshBasicMaterial
   ( -- * Types
@@ -8,7 +12,6 @@ module THREE.MeshBasicMaterial
     -- * Methods
   , new
     -- * Properties
-  , color
   ) where
 -----------------------------------------------------------------------------
 import           Language.Javascript.JSaddle hiding (new)
@@ -21,11 +24,12 @@ import           THREE.Material (Material)
 newtype MeshBasicMaterial
   = MeshBasicMaterial
   { unMeshBasicMaterial :: JSVal
-  } deriving (ToJSVal, EventDispatcher, MakeObject, Material)
+  } deriving newtype (MakeArgs, MakeObject, ToJSVal)
+    deriving anyclass (Material, EventDispatcher)
 -----------------------------------------------------------------------------
 new :: Maybe Object -> THREE.Three MeshBasicMaterial
 new = THREE.new MeshBasicMaterial "MeshBasicMaterial"
 -----------------------------------------------------------------------------
-color :: THREE.Property MeshBasicMaterial JSString
-color = THREE.property "color" 
+instance FromJSVal MeshBasicMaterial where
+  fromJSVal = pure . Just . MeshBasicMaterial
 -----------------------------------------------------------------------------
